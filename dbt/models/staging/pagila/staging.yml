@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: stg_actor
+    columns:
+      - name: actor_key
+        tests:
+          - unique
+          - not_null
+      - name: actor_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_customer
+    columns:
+      - name: customer_key
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_date
+    columns:
+      - name: date_day
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_film_actor
+    columns:
+      - name: film_id
+        tests:
+          - relationships:
+              to: ref('stg_film')
+              field: film_id
+      - name: actor_id
+        tests:
+          - relationships:
+              to: ref('stg_actor')
+              field: actor_id
+
+  - name: stg_film
+    columns:
+      - name: film_key
+        tests:
+          - unique
+          - not_null
+      - name: film_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_staff
+    columns:
+      - name: staff_key
+        tests:
+          - unique
+          - not_null
+      - name: staff_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_store
+    columns:
+      - name: store_key
+        tests:
+          - unique
+          - not_null
+      - name: store_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_time
+    columns:
+      - name: time_value
+        tests:
+          - unique
+          - not_null

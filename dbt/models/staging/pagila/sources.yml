@@ -1,0 +1,244 @@
+version: 2
+
+sources:
+  - name: src
+    tables:
+      - name: actor
+        description: The actor table in the Pagila schema.
+        columns:
+          - name: actor_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+      - name: address
+        description: The address table in the Pagila schema.
+        columns:
+          - name: address_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: city_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'city')
+                  field: city_id
+      - name: category
+        description: The category table in the Pagila schema.
+        columns:
+          - name: category_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+      - name: city
+        description: The city table in the Pagila schema.
+        columns:
+          - name: city_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: country_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'country')
+                  field: country_id
+      - name: country
+        description: The country table in the Pagila schema.
+        columns:
+          - name: country_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+      - name: customer
+        description: The customer table in the Pagila schema.
+        columns:
+          - name: customer_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: store_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'store')
+                  field: store_id
+          - name: address_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'address')
+                  field: address_id
+      - name: film
+        description: The film table in the Pagila schema.
+        columns:
+          - name: film_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: language_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'language')
+                  field: language_id
+          - name: original_language_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'language')
+                  field: language_id
+          - name: rating
+            tests:
+              - accepted_values:
+                  values: ["PG-13", "G", "R", "NC-17", "PG"]
+      - name: film_actor
+        description: The film_actor table in the Pagila schema.
+        columns:
+          - name: actor_id
+            description: PK, FK
+            tests:
+              - relationships:
+                  to: source('src', 'actor')
+                  field: actor_id
+          - name: film_id
+            description: PK, FK
+            tests:
+              - relationships:
+                  to: source('src', 'film')
+                  field: film_id
+      - name: film_category
+        description: The film_category table in the Pagila schema.
+        columns:
+          - name: film_id
+            description: PK, FK
+            tests:
+              - relationships:
+                  to: source('src', 'film')
+                  field: film_id
+          - name: category_id
+            description: PK, FK
+            tests:
+              - relationships:
+                  to: source('src', 'category')
+                  field: category_id
+      - name: inventory
+        columns:
+          - name: inventory_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: film_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'film')
+                  field: film_id
+          - name: store_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'store')
+                  field: store_id
+      - name: language
+        description: The language table in the Pagila schema.
+        columns:
+          - name: language_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+      - name: payment
+        description: The payment table in the Pagila schema.
+        columns:
+          - name: payment_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: customer_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'customer')
+                  field: customer_id
+          - name: staff_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'staff')
+                  field: staff_id
+          - name: rental_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'rental')
+                  field: rental_id
+      - name: rental
+        description: The rental table in the Pagila schema.
+        columns:
+          - name: rental_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: inventory_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'inventory')
+                  field: inventory_id
+          - name: customer_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'customer')
+                  field: customer_id
+      - name: staff
+        description: The staff table in the Pagila schema.
+        columns:
+          - name: staff_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: address_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'address')
+                  field: address_id
+          - name: store_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'store')
+                  field: store_id
+      - name: store
+        description: The store table in the Pagila schema.
+        columns:
+          - name: store_id
+            description: PK
+            tests:
+              - unique
+              - not_null
+          - name: manager_staff_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'staff')
+                  field: staff_id
+          - name: address_id
+            description: FK
+            tests:
+              - relationships:
+                  to: source('src', 'address')
+                  field: address_id

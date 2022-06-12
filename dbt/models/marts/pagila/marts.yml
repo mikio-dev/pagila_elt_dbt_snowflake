@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: dim_date
+    columns:
+      - name: date_key
+        tests:
+          - unique
+          - not_null
+      - name: date_value
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_time
+    columns:
+      - name: time_value
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_rental
+    columns:
+      - name: rental_id
+        tests:
+          - unique
+          - not_null
