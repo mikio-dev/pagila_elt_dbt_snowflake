@@ -2,26 +2,38 @@ version: 2
 
 models:
   - name: dim_date
+    description: Dimension table dim_date in the star schema.
     columns:
       - name: date_key
+        description: PK (surrogate key)
         tests:
           - unique
           - not_null
       - name: date_value
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: dim_time
+    description: Dimension table dim_time in the star schema.
     columns:
+      - name: time_key
+        description: PK (surrogate key)
+        tests:
+          - unique
+          - not_null
       - name: time_value
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: fact_rental
+    description: Fact table fact_rental in the star schema.
     columns:
       - name: rental_id
+        description: Natural key
         tests:
           - unique
           - not_null

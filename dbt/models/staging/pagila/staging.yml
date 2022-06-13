@@ -2,83 +2,105 @@ version: 2
 
 models:
   - name: stg_actor
+    description: Staging table for the dim_actor table (snapshot).
     columns:
       - name: actor_key
+        description: PK (surrogate key)
         tests:
           - unique
           - not_null
       - name: actor_id
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: stg_customer
+    description: Staging table for the dim_customer table (snapshot).
     columns:
       - name: customer_key
+        description: PK (surrogate key)
         tests:
           - unique
           - not_null
       - name: customer_id
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: stg_date
+    description: Staging table for the dim_date table.
     columns:
       - name: date_day
+        description: PK
         tests:
           - unique
           - not_null
 
   - name: stg_film_actor
+    description: Staging table for the dim_film_actor table (snapshot).
     columns:
       - name: film_id
+        description: Natural key
         tests:
           - relationships:
               to: ref('stg_film')
               field: film_id
       - name: actor_id
+        description: Natural key
         tests:
           - relationships:
               to: ref('stg_actor')
               field: actor_id
 
   - name: stg_film
+    description: Staging table for the dim_film table (snapshot).
     columns:
       - name: film_key
+        description: PK (surrogate key)
         tests:
           - unique
           - not_null
       - name: film_id
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: stg_staff
+    description: Staging table for the dim_staff table (snapshot).
     columns:
       - name: staff_key
+        description: PK (surrogate key)
         tests:
           - unique
           - not_null
       - name: staff_id
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: stg_store
+    description: Staging table for the dim_store table (snapshot).
     columns:
       - name: store_key
+        description: PK (surrogate key)
         tests:
           - unique
           - not_null
       - name: store_id
+        description: Natural key
         tests:
           - unique
           - not_null
 
   - name: stg_time
+    description: Staging table for the dim_time table.
     columns:
       - name: time_value
+        description: Natural key
         tests:
           - unique
           - not_null
